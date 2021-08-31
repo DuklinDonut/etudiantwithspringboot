@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorator="template">
+<head>
+<meta charset="utf-8"/>
+<title>Saisie des etudiants</title>
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"
+      th:href="@{/css/bootstrap.min.css}"/>
+      
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css"
+      th:href="@{/css/bootstrap.css}"/>
+
+<link rel="stylesheet" type="text/css" href="../static/css/myStyle.css"
+      th:href="@{/css/myStyle.css}"/>
+
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+</head>
+<body layout:fragment="content">
+
+<div class="container"> 
+	<div class="col-md-6 col-xs-12 spacer">
+		 
+		<div class="panel panel-default ">
+			  <div class="panel-heading">Saisie d'un étudiant
+			  </div>
+		  <div class="panel-body">
+			  <form class="text-danger" th:action="@{UpdateApprenant}" 
+			  method="post" th:object="${apprenant}" enctype="multipart/form-data">
+			     
+			     
+			     <div class="form-group">
+			         <label class="control-label">Id:</label>
+			         <input type="text" th:field="*{idApprenant}" class="form-control"/>
+			         <span class="text-danger" th:errors="*{idApprenant}"></span>
+			     </div>
+			     
+			     
+			     <div class="form-group">
+			         <label class="control-label">Nom:</label>
+			         <input type="text" th:field="*{nom}" class="form-control"/>
+			         <span class="text-danger" th:errors="*{nom}"></span>
+			     </div>
+			     
+			     <div class="form-group">
+			         <label class="control-label">Date:</label>
+			         <input type="date" th:field="*{dateNaissance}" class="form-control"/>
+			         <span class="text-danger" th:errors="*{dateNaissance}"></span>
+			     </div>
+			     
+			     <div class="form-group">
+			         <label class="control-label">Email:</label>
+			         <input type="text" th:field="*{email}" class="form-control"/>
+			         <span class="text-danger" th:errors="*{email}"></span>
+			     </div>
+			     
+			     <div class="form-group">
+			         <label class="control-label">Photo:</label>
+			         <input type="file" name="picture" class="form-control"/>
+			         <span class="text-danger" th:errors="*{photoApprenant}"></span>
+			         <img class="rounded-circle" th:src="@{getPhotoApprenant(id =${apprenant.idApprenant})}" width="100" height="100"/>
+			     </div>
+			     
+			     
+			       <div>
+				  <input type="radio" id="yes" value="true" th:field="*{etat}" class="form-control"/>				  
+				  <label for="yes">accepté</label>
+				  <span class="text-danger" th:errors="*{etat}"></span>
+				</div>
+			     <div>
+				  <input type="radio" id="no" value="false" th:field="*{etat}" class="form-control"/>				  
+				  <label for="no">refusé</label>
+				  <span class="text-danger" th:errors="*{etat}"></span>
+				</div>
+			     
+			     <div>
+			       <button type="submit" class="btn btn-primary">Save in Etudiants</button>
+			      
+			     </div>
+			     
+			  </form>
+		  </div>
+		</div>
+	</div>
+</div>
+
+
+</body>
+</html>

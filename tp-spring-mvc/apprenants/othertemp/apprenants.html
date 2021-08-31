@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorator="template">
+
+<head>
+<meta charset="utf-8"/>
+<title>Liste des etudiants</title>
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.min.css"
+      th:href="@{/css/bootstrap.min.css}"/>
+      
+<link rel="stylesheet" type="text/css" href="../static/css/bootstrap.css"
+      th:href="@{/css/bootstrap.css}"/>
+
+
+<link rel="stylesheet" type="text/css" href="../static/css/myStyle.css"
+      th:href="@{/css/myStyle.css}"/>
+<!-- <style type="text/css">
+  .nav-pills li {
+            margin-top: 5px;
+            background-color: #000000 !important;
+            border-radius: 5px;
+        }
+            .nav-pills li a {
+                font-weight: bold !important;
+                color: gray;
+            }
+                .nav-pills li a:hover {
+                    background-color: gray !important;
+                    color: white;
+                }
+
+                .nav-pills li a:focus {
+                    background-color: gray !important;
+                    color: white;
+                }
+
+</style> -->
+
+<style>
+.nav>li:hover,
+.nav>li:focus,
+.nav>li:focus {
+  background-color: #f0ffec;
+}
+</style>
+
+</head>
+<body layout:fragment="content">
+
+
+<div class="container spacer">
+   <form th:action="@{Index}" method="get">
+    <div class="form-group">
+        <label>Mot Clé</label>
+        <input type="text" name="motCle" th:value="${motCle}"/>
+        <button type="submit"class="btn btn-primary">Chercher</button>
+        
+    </div>
+   </form>
+</div>
+ <div class="container spacer">
+  <table class="table table-striped">
+    <thead>
+        <tr>
+           <th>ID</th> <th>Nom</th> <th>Date</th> <th>Email</th> <th>Etat</th> <th>photo</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="a:${pageApprenants}">
+          <td th:text="${a.idApprenant}"></td>
+          <td th:text="${a.nom}"></td>
+          <td th:text="${a.dateNaissance}"></td>
+          <td th:text="${a.email}"></td>
+          <td th:text="${a.etat}"></td>
+          
+          <td >
+             <img class="rounded-circle" th:src="@{getPhotoApprenant(id =${a.idApprenant})}" width="100" height="100"/>
+          </td>
+          <td><a onclick="return confirm('Etes-vous sûrs?')" th:href="@{supprimer(id=${a.idApprenant})}">Supprimer</a></td>
+          <td><a  th:href="@{edit(id=${a.idApprenant})}">Modifier</a></td>
+        </tr>
+    </tbody>
+  </table>
+ </div>
+ 
+
+ 
+ <div class="container ">
+   <ul class="nav nav-pills nav-justified custom">
+      <!-- <li th:each="p:${pages}" th:class="${p==pageCourante}?activate:'' " >
+        <a th:text="${p}" th:href="@{Index(page=${p},motCle=${motCle})}"></a>
+      </li> -->
+      
+      <li th:each="p:${pages}" th:class="nav-item "  >
+        <a class="nav-link" th:text="${p}" th:href="@{Index(page=${p},motCle=${motCle})}">Active</a>
+      </li>
+   </ul>
+ </div>
+ 
+                  
+</body>
+</html>
